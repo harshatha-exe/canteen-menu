@@ -1,0 +1,4 @@
+This application follows a layered architecture (controller -> service -> repository). Entities are persisted
+using JPA to an in-memory H2 database for testing. Input validation and global exception handling ensure that 
+only valid data is entered, while providing user-friendly error responses. DTOs (Data Transfer Objects) separate 
+the API data structure from the database models.
