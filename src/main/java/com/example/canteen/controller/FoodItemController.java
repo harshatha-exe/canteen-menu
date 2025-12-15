@@ -20,30 +20,26 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/items")
 public class FoodItemController {
-private final FoodItemService service;
-public FoodItemController(FoodItemService service) {
-    this.service = service;
-}
-@PostMapping
-public ResponseEntity<FoodItemDTO> createItem(@Valid @RequestBody
-CreateOrUpdateFoodItemDTO dto) {
-FoodItemDTO created = service.createItem(dto);
-return ResponseEntity.created(URI.create("/api/items/" +
-created.getId())).body(created);
-}
-@GetMapping
-public ResponseEntity<List<FoodItemDTO>> getAllItems() {
-return ResponseEntity.ok(service.getAllItems());
-}
-@PutMapping("/{id}")
-public ResponseEntity<FoodItemDTO> updateItem(@PathVariable Long id, @Valid
-@RequestBody CreateOrUpdateFoodItemDTO dto) {
-FoodItemDTO updated = service.updateItem(id, dto);
-return ResponseEntity.ok(updated);
-}
-@DeleteMapping("/{id}")
-public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
-service.deleteItem(id);
-return ResponseEntity.noContent().build();
-}
+    private final FoodItemService service;
+    public FoodItemController(FoodItemService service) {
+        this.service = service;
+    }
+    @PostMapping
+    public ResponseEntity<FoodItemDTO> createItem(@Valid @RequestBody CreateOrUpdateFoodItemDTO dto) {
+        FoodItemDTO created = service.createItem(dto);
+        return ResponseEntity.created(URI.create("/api/items/" + created.getId())).body(created);
+    }
+    @GetMapping
+    public List<FoodItemDTO> getAllItems() {
+        return service.getAllItems();
+    }
+    @PutMapping("/{id}")
+    public FoodItemDTO updateItem(@PathVariable Long id, @Valid @RequestBody CreateOrUpdateFoodItemDTO dto) {
+        return service.updateItem(id, dto);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
+        service.deleteItem(id);
+        return ResponseEntity.noContent().build();
+    }
 }
